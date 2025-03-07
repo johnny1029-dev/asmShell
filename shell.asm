@@ -5,6 +5,7 @@ extern line
 extern size
 extern strcmp
 _start:
+  call print_prompt
   call read_line
   mov ecx, line
   mov edx, [size]
@@ -62,9 +63,17 @@ print_wrong_command:
   call write
   ret
 
+print_prompt:
+  mov ecx, prompt
+  mov edx, prompt_length
+  call write
+  ret
+
 
 section .data
   exit_command db "exit", 0xA, 0
   wrong_command db "Wrong command", 0xA, 0
   wrong_command_length equ $ - wrong_command
+  prompt db "> ", 0
+  prompt_length equ $ - prompt
 
